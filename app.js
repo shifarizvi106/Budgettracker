@@ -1,50 +1,12 @@
-//targeting
-//taregt by id
-
-const form = document.getElementById("budget-form")
-//console.log(form);
+const form = document.getElementById("budget-form");
 const categorySelect = document.querySelector("#category");
-//console.log(categorySelect);
-const container = document.getElementsByClassName("container");
-//console.log(container); 
-const options = document.querySelectorAll(".category-option");
-//console.log(options)
-const inputTags = document.getElementsByTagName("input");
-//console.log(inputTags);
 const expenseList = document.getElementById("expense-list");
-
-// Form submit event listener
-form.addEventListener("submit", function(e) {
-    e.preventDefault(); // prevent form from refreshing the page
-
-    const description = document.getElementById("description").value;
-    const amount = document.getElementById("amount").value;
-    const category = categorySelect.value;
-
-    if (description === "" || amount === "") {
-        alert("Please fill in all fields!");
-        return;
-    }
-
-    // Create a new list item
-
-    const li = document.createElement("li");
-    li.innerHTML = `
-        ${description} - ₹${amount} <span>(${category})</span>
-    `;
-
-    // Append to expense list
-    expenseList.appendChild(li);
-
-    // Clear form inputs
-    form.reset();
-});
-let totalBudget = 0;
-let remainingBalance = 0;
-
 const budgetAmountForm = document.getElementById("budget-amount-form");
 const netAmountInput = document.getElementById("net-amount");
 const remainingBalanceSpan = document.getElementById("remaining-balance");
+
+let totalBudget = 0;
+let remainingBalance = 0;
 
 // Handle Budget Set
 budgetAmountForm.addEventListener("submit", function(e) {
@@ -60,7 +22,7 @@ budgetAmountForm.addEventListener("submit", function(e) {
     netAmountInput.value = ""; // Clear input
 });
 
-// Update Add Expense Function
+// Handle Adding Expense & Subtracting from Balance
 form.addEventListener("submit", function(e) {
     e.preventDefault();
 
@@ -78,10 +40,11 @@ form.addEventListener("submit", function(e) {
         return;
     }
 
-    // Create a new list item
+    // Create a new list item with delete button
     const li = document.createElement("li");
     li.innerHTML = `
         ${description} - ₹${amount} <span>(${category})</span>
+        <button class="delete-btn">Delete</button>
     `;
 
     expenseList.appendChild(li);
@@ -91,4 +54,18 @@ form.addEventListener("submit", function(e) {
     remainingBalanceSpan.textContent = remainingBalance;
 
     form.reset();
+});
+
+// Delete expense and update remaining balance
+expenseList.addEventListener("click", function(e) {
+    if (e.target.classList.contains("delete-btn")) {
+        const li = e.target.parentElement;
+        const amountText = li.textContent.match(/₹(\d+)/);
+        if (amountText) {
+            const amount = parseInt(amountText[1]);
+            remainingBalance += amount;
+            remainingBalanceSpan.textContent = remainingBalance;
+        }
+        li.remove();
+    }
 });

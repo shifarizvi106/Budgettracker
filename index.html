@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Budget Tracker </title>
+    <link rel = "stylesheet" href = style.css /> 
+</head>
+<body>
+   <div class = "container">
+    <form id="budget-amount-form">
+    <label for="net-amount">Net Budget Amount</label>
+    <input type="number" id="net-amount" placeholder="Enter your total budget">
+    <button type="submit">Set Budget</button>
+</form>
+
+<h2>Remaining Balance: ₹<span id="remaining-balance">0</span></h2>
+
+    <h1> Budget Tracker </h1>
+    <form id = "budget-form"> 
+        <label for = "description">
+            description
+            <input type = "text" id = "description" placeholder = "Expense description"
+>
+
+        </label>
+<label for = "amount" > Amount </label>
+<input type ="number" id = amount placeholder = "Expense amount">
+<label for = "category"> Categories </label> 
+<select id = "category"> 
+    <option class = "category-option" value = "crockry">
+crockry
+    </option>
+     <option class = "category-option" value = "entertainment">
+entertainment
+    </option>
+     <option class = "category-option" value = "essentials">
+essesntials
+    </option>
+     <option class = "category-option" value = "miscellaneous">
+miscellaneous
+    </option>
+    <button id = "add expense"> Add Expense
+
+    </button>
+    
+
+</select>
+    </form>
+<ul id = "expense list"> </ul>
+   </div> 
+   <script src ="app.js"> 
+
+   </script>
+</body>
+</html>
